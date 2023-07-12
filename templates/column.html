@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <nav style="background-color: rgb(252, 211, 6);" class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link" href="#">Features</a>
+              <a class="nav-link" href="#">Visualize</a>
+            </div>
+          </div>
+        </div>
+      </nav> <br><br>
+    {% if type %}
+    <center><h1 class="display-1">{{type}}</h1></center>
+    {% if type == "Categorical Analysis" %}
+        <center><h1 class="display-4">Uni-variate</h1></center>
+        {% for plot in plots.keys() %}
+        <div class="col-xs-10 col-sm-6 col-md-6"  style="width: 100%;">
+            <div class="card card-style mb-2">
+                <div class="card-body">
+                    <div class="chart-container" style="position: relative;">
+                        <center><h1 class="display-6">{{plot}}</h1></center>
+                        <center><img src=".{{plots[plot]}}" class="img-fluid" alt="{{plot}}"></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-xs-10 col-sm-6 col-md-6"  style="width: 100%;">
+            <div class="card card-style mb-2">
+                <div class="card-body">
+                    <div class="chart-container" style="position: relative;">
+                        <center>
+                            <h1 class="display-6">Null-Values</h1>
+                            <h1 class="display-6"> {{data.isnull().sum()}}</h1>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-10 col-sm-6 col-md-6"  style="width: 100%;">
+            <div class="card card-style mb-2">
+                <div class="card-body">
+                    <div class="chart-container" style="position: relative;">
+                        <center>
+                            <h1 class="display-6">Unique Value Counts</h1>
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Value</th>
+                                    <th scope="col">Count</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for index in data.value_counts().index %}
+                                      <tr>
+                                        <td>{{index}}</td>
+                                        <td>{{data.value_counts()[index]}}</td>
+                                      </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-10 col-sm-6 col-md-6"  style="width: 100%;">
+            <div class="card card-style mb-2">
+                <div class="card-body">
+                    <div class="chart-container" style="position: relative;">
+                        <center>
+                            <h1 class="display-6">Most Occured</h1>
+                            <h1 class="display-6"> {{data.value_counts().index[0]}}</h1>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-10 col-sm-6 col-md-6"  style="width: 100%;">
+            <div class="card card-style mb-2">
+                <div class="card-body">
+                    <div class="chart-container" style="position: relative;">
+                        <center>
+                            <h1 class="display-6">Least Occured</h1>
+                            <h1 class="display-6"> {{data.value_counts().index[-1]}}</h1>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if type == "Numerical Analysis" %}
+        <center><h1 class="display-4">Uni-variate</h1></center>
+        {% for plot in plots.keys() %}
+            <div class="col-xs-10 col-sm-6 col-md-6"  style="width: 100%;">
+                <div class="card card-style mb-2">
+                    <div class="card-body">
+                        <div class="chart-container" style="position: relative;">
+                            <center><h1 class="display-6">{{plot}}</h1></center>
+                            <center><img src=".{{plots[plot]}}" class="img-fluid" alt="{{plot}}"></center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col-xs-10 col-sm-6 col-md-6"  style="width: 100%;">
+            <div class="card card-style mb-2">
+                <div class="card-body">
+                    <div class="chart-container" style="position: relative;">
+                        <center>
+                            <h1 class="display-6">Statistics</h1>
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Metric</th>
+                                    <th scope="col">Value</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for index in data.describe().index %}
+                                      <tr>
+                                        <td>{{index}}</td>
+                                        <td>{{data.describe()[index]}}</td>
+                                      </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-10 col-sm-6 col-md-6"  style="width: 100%;">
+            <div class="card card-style mb-2">
+                <div class="card-body">
+                    <div class="chart-container" style="position: relative;">
+                        <center>
+                            <h1 class="display-6">Correlation</h1>
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Attribute</th>
+                                    <th scope="col">Co-Relation Co-efficient</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for index in corr.index %}
+                                      <tr>
+                                        <td>{{index}}</td>
+                                        <td>{{corr[index]}}</td>
+                                      </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if type == "Text Analysis" %}
+    <div class="col-xs-10 col-sm-6 col-md-6"  style="width: 100%;">
+        <div class="card card-style mb-2">
+            <div class="card-body">
+                <div class="chart-container" style="position: relative;">
+                    <center><h1 class="display-6">Word Cloud</h1></center>
+                    <center><img src=".{{plots}}" class="img-fluid" alt="{{plot}}"></center>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
